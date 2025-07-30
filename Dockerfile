@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies (you can still use requirements.txt)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Don't copy the source code — will use bind mount instead
+
+# Run Gunicorn to serve the Flask app
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]

@@ -1,0 +1,12 @@
+anthropic==0.52.1
+faiss-gpu-cu12==1.11.0
+filelock==3.17.0
+Flask==3.1.1
+numpy==1.26.4
+Markdown==3.8
+pandas==2.3.1
+python-dotenv==0.20.0
+sentence-transformers==4.1.0
+torch==2.7.0
+gunicorn
+faiss-cpu
