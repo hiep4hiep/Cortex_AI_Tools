@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Don't copy the source code — will use bind mount instead
 
 # Run Gunicorn to serve the Flask app
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
+CMD ["gunicorn", "-w", "2", "-k", "gevent", "-b", "0.0.0.0:8000", "--timeout", "180", "app:app"]

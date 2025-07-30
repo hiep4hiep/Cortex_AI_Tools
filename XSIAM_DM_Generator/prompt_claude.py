@@ -41,7 +41,7 @@ def prompt_claude_with_rag(question):
         Sample data model rule:
         {sample_rule}
         """
-
+    
     content = f"Context:\n{context}\n\n"
     content += f"Raw log: {question}\n"
 

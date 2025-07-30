@@ -10,3 +10,4 @@ sentence-transformers==4.1.0
 torch==2.7.0
 gunicorn
 faiss-cpu
+gevent
