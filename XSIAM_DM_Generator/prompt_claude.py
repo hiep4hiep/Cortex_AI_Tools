@@ -29,7 +29,7 @@ def prompt_claude_with_rag(question):
 
         Follow these steps:
         1. Review the data model schema and understand the required fields and their types.
-        2. Examine the raw log messages and identify how each field maps to the XSIAM schema. Refer to the provided data model rule examples for guidance.
+        2. Examine the raw log messages and identify how each field maps to the XSIAM schema. Refer to the provided data model rule examples for guidance. Note that if the log message is in CEF or LEEF format, you don't need to extract CEF fields, just need to map the fields to the XSIAM data model schema.
         3. Output the mapping rules in a clear, structured format suitable for implementation.
 
         Data model schema:
