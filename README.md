@@ -1,38 +1,27 @@
-> **Note:**  
-# Retrieval-Augmented Generation (RAG) and Claude API
-## Retrieval-Augmented Generation (RAG)
+## Overview
 
-RAG is an AI technique that combines retrieval of relevant documents with generative models. It works in two main steps:
+This application consists of three modules, each leveraging AI Agents to streamline security data operations:
 
-1. **Retrieval:** The system searches a knowledge base or document store to find information relevant to the user's query.
-2. **Generation:** A language model uses the retrieved documents as context to generate a more accurate and informed response.
+1. **XSIAM Data Model Generator**  
+   Utilizes AI to automatically generate data models tailored for XSIAM environments.
 
-This approach improves factual accuracy and allows the model to answer questions using up-to-date or domain-specific information.
+2. **Data Source Ingestion Design Document Builder**  
+   Employs AI to create comprehensive design documents for ingesting data sources efficiently.
 
-## Claude API
+3. **Splunk to Cortex XQL Query Converter**  
+   Uses AI to translate Splunk queries into Cortex XQL queries, simplifying migration and interoperability.
 
-The Claude API provides access to Anthropic's Claude language models. It allows developers to integrate advanced conversational AI into their applications. Key features include:
+Each module is designed to accelerate and automate complex security data workflows.
 
-- **Text generation:** Generate human-like responses to prompts.
-- **Contextual understanding:** Accepts conversation history and external documents for context.
-- **Safety controls:** Includes mechanisms to ensure responsible AI usage.
-
-To use the Claude API, you send a prompt (and optional context) to the endpoint, and receive a generated response from the model.
-
-> To use the Claude API, you must create a `.env` file in your project directory and add your own API key.  
-> Example:
-> ```
-> CLAUDE_API_KEY=your-api-key-here
-> ```
-> Replace `your-api-key-here` with your actual Claude API key. This ensures secure authentication when making requests to the API.
-
-
-## Integrating XSIAM Marketplace Content for RAG
-
-To enhance the retrieval capabilities of RAG, content is scraped from the XSIAM Marketplace and stored in a vector database. This process involves:
-
-1. **Scraping:** Extracting relevant data and documentation from XSIAM Marketplace listings.
-2. **Indexing:** Converting the scraped content into vector embeddings for efficient similarity search.
-3. **Reference:** During RAG queries, the system retrieves context from the indexed XSIAM content, enabling more accurate and domain-specific responses.
-
-This integration ensures that the generative model can reference up-to-date information from XSIAM Marketplace, improving the relevance and quality of answers.
+## Run
+### Step 1: Install Docker in your Linux server
+### Step 2: create .env file in each app folders which contains Claude API key (ANTHROPIC_API_KEY=<key>)
+### Step 2: Run the application
+```
+sudo chmod +X run_app.sh
+sudo ./run_app.sh
+```
+### Step 3: AI Agent Web UI will run in 3 ports. You can access via http://server-ip:port
+- XSIAM_SPL_Converter - HTTP port 8000
+- XSIAM_DM_Generator - HTTP port 8001
+- XSIAM_Ingestion_Document - HTTP port 8002
