@@ -18,9 +18,12 @@ def api_claude():
     user_prompt = data.get('prompt', '')
     if not user_prompt:
         return jsonify({'error': 'Prompt is required.'}), 400
-    response_text = prompt_claude_with_rag(user_prompt)
-    html_output = markdown.markdown(response_text)
-    return jsonify({'response': html_output})
+    try:
+        response_text = prompt_claude_with_rag(user_prompt)
+        html_output = markdown.markdown(response_text)
+        return jsonify({'response': html_output})
+    except Exception as e:
+        return jsonify({'error': "Cannot connect to LLM API"}), 500
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
