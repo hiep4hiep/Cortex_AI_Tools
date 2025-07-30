@@ -20,7 +20,7 @@ def api_claude():
         return jsonify({'error': 'Prompt is required.'}), 400
     try:
         response_text = prompt_claude_with_rag(user_prompt)
-        html_output = markdown.markdown(response_text)
+        html_output = markdown.markdown(response_text,extensions=["fenced_code", "codehilite"])
         return jsonify({'response': html_output})
     except Exception as e:
         return jsonify({'error': "Cannot connect to LLM API"}), 500
