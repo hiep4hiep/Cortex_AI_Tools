@@ -43,7 +43,7 @@ Your task is to analyze the provided search query in Splunk SPL and convert it t
 Given the following example search queries in Splunk SPL and the corresponding converted XQL query, your task is to to the same for the required search query.
 {example_text}
 
-Refer to the list of XQL stages and functions and the field schema below to help you with the conversion:
+Refer to the list of XQL stages and functions and the field schema below to help you with the conversion. Use data model query and fields where as much as possible where applicable.
 - XQL Stages:
 {xql_stages}
 
