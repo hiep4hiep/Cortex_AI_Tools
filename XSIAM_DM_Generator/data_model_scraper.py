@@ -28,5 +28,5 @@ def embed_and_store_in_faiss(sample_path):
 
 
 if __name__ == "__main__":
-    embed_and_store_in_faiss("sample_raw_log_to_dm.csv")
+    embed_and_store_in_faiss("../Data/sample_raw_log_to_dm.csv")
     

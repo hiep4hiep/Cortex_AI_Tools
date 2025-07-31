@@ -33,5 +33,5 @@ def embed_and_store_in_faiss(sample_path):
 
 
 if __name__ == "__main__":
-    embed_and_store_in_faiss("SPL_to_XQL.csv")
+    embed_and_store_in_faiss("../Data/SPL_to_XQL.csv")
     
