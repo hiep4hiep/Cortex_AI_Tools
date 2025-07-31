@@ -50,14 +50,14 @@ Refer to the list of XQL stages and functions and the field schema below to help
 - XQL Functions:
 {xql_functions}
 
-- XQL Field Schema:
+- XQL Data model field Schema:
 {dm_schema}
 
         """
 
     content = f"Context:\n{context}\n\n"
-    content += f"Convert this query: {question}\n"
-    
+    content += f"Convert this query to Cortex XQL using Data Model query datamodel dataset where possible: {question}\n"
+
     client = anthropic.Anthropic()
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
@@ -71,13 +71,9 @@ Refer to the list of XQL stages and functions and the field schema below to help
 if __name__ == "__main__":
     # For testing purposes, can run this script directly
     print(prompt_claude_with_rag("""
-'| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time)
-  as lastTime FROM datamodel=Endpoint.Registry WHERE (Registry.registry_path= "*SOFTWARE\\Microsoft\\Windows
-  NT\\CurrentVersion\\Winlogon*" AND Registry.registry_value_name=AutoAdminLogon AND
-  Registry.registry_value_data=1) by Registry.action Registry.dest Registry.process_guid
-  Registry.process_id Registry.registry_hive Registry.registry_path Registry.registry_key_name
-  Registry.registry_value_data Registry.registry_value_name Registry.registry_value_type
-  Registry.status Registry.user Registry.vendor_product | `drop_dm_object_name(Registry)`
-  | where isnotnull(registry_value_data) | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)`
-  | `auto_admin_logon_registry_entry_filter`'
+'`wineventlog_security` EventCode=4624 OR EventCode=4742 TargetUserName="ANONYMOUS
+  LOGON" LogonType=3 | stats count min(_time) as firstTime max(_time) as lastTime
+  by action app authentication_method dest dvc process process_id process_name process_path
+  signature signature_id src src_port status subject user user_group vendor_product
+  | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `detect_computer_changed_with_anonymous_account_filter`'
                                  """))
