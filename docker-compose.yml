@@ -49,11 +49,27 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - web-ui
       - dmgen
       - spl
       - ingestion-doc
+    networks:
+      - app-net
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: >
+      sh -c "certbot certonly --webroot -w /var/www/certbot
+            --email your@email.com
+            --agree-tos
+            --no-eff-email
+            -d thedevguy.work -d www.thedevguy.work"
     networks:
       - app-net
 
