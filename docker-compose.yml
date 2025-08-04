@@ -1,0 +1,61 @@
+services:
+  web-ui:
+    build: .
+    container_name: web-ui
+    volumes:
+      - ./Web_App:/app
+    expose:
+      - 8000
+    networks:
+      - app-net
+
+  dmgen:
+    build: .
+    container_name: dmgen
+    volumes:
+      - ./XSIAM_DM_Generator:/app
+    expose:
+      - 8001
+    command: ["gunicorn", "-w", "2", "-k", "gevent", "-b", "0.0.0.0:8001", "--timeout", "180", "app:app"]
+    networks:
+      - app-net
+
+  spl:
+    build: .
+    container_name: spl
+    volumes:
+      - ./XSIAM_SPL_Converter:/app
+    expose:
+      - 8002
+    command: ["gunicorn", "-w", "2", "-k", "gevent", "-b", "0.0.0.0:8002", "--timeout", "180", "app:app"]
+    networks:
+      - app-net
+
+  ingestion-doc:
+    build: .
+    container_name: ingestion-doc
+    volumes:
+      - ./XSIAM_Ingestion_Document:/app
+    expose:
+      - 8003
+    command: ["gunicorn", "-w", "2", "-k", "gevent", "-b", "0.0.0.0:8003", "--timeout", "180", "app:app"]
+    networks:
+      - app-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web-ui
+      - api-1
+      - api-2
+      - api-3
+    networks:
+      - app-net
+
+networks:
+  app-net:
