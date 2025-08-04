@@ -1,6 +1,6 @@
 services:
   web-ui:
-    build: .
+    image: flask-gunicorn:latest
     container_name: web-ui
     volumes:
       - ./Web_App:/app
@@ -10,7 +10,7 @@ services:
       - app-net
 
   dmgen:
-    build: .
+    image: flask-gunicorn:latest
     container_name: dmgen
     volumes:
       - ./XSIAM_DM_Generator:/app
@@ -21,7 +21,7 @@ services:
       - app-net
 
   spl:
-    build: .
+    image: flask-gunicorn:latest
     container_name: spl
     volumes:
       - ./XSIAM_SPL_Converter:/app
@@ -32,7 +32,7 @@ services:
       - app-net
 
   ingestion-doc:
-    build: .
+    image: flask-gunicorn:latest
     container_name: ingestion-doc
     volumes:
       - ./XSIAM_Ingestion_Document:/app
@@ -51,11 +51,17 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - web-ui
-      - api-1
-      - api-2
-      - api-3
+      - dmgen
+      - spl
+      - ingestion-doc
     networks:
       - app-net
 
+  toolbox:
+    image: curlimages/curl:latest
+    container_name: toolbox
+    entrypoint: ["sleep", "infinity"]
+    networks:
+      - app-net
 networks:
   app-net:

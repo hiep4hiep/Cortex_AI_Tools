@@ -8,11 +8,11 @@ load_dotenv()  # Load from .env if exists
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template('index.html', response="", loading=False)
+#@app.route('/', methods=['GET', 'POST'])
+#def index():
+#    return render_template('index.html', response="", loading=False)
 
-@app.route('/api/claude', methods=['POST'])
+@app.route('/', methods=['POST'])
 def api_claude():
     data = request.get_json()
     user_prompt = data.get('prompt', '')
