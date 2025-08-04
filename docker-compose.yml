@@ -58,32 +58,32 @@ services:
       - ingestion-doc
     networks:
       - app-net
-  nginx_certbot:
-    image: nginx:alpine
-    container_name: nginx_certbot
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx_cert_provision.conf:/etc/nginx/nginx.conf:ro
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    networks:
-      - app-net
+  # nginx_certbot:
+  #   image: nginx:alpine
+  #   container_name: nginx_certbot
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./nginx_cert_provision.conf:/etc/nginx/nginx.conf:ro
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/www:/var/www/certbot
+  #   networks:
+  #     - app-net
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: >
-      sh -c "certbot certonly --webroot -w /var/www/certbot
-            --email your@email.com
-            --agree-tos
-            --no-eff-email
-            -d thedevguy.work -d www.thedevguy.work"
-    networks:
-      - app-net
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes:
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/www:/var/www/certbot
+  #   entrypoint: >
+  #     sh -c "certbot certonly --webroot -w /var/www/certbot
+  #           --email your@email.com
+  #           --agree-tos
+  #           --no-eff-email
+  #           -d thedevguy.work -d www.thedevguy.work"
+  #   networks:
+  #     - app-net
 
   toolbox:
     image: curlimages/curl:latest
