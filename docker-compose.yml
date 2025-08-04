@@ -65,6 +65,8 @@ services:
       - "80:80"
     volumes:
       - ./nginx_cert_provision.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     networks:
       - app-net
 
