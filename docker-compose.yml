@@ -60,7 +60,7 @@ services:
       - app-net
   nginx_certbot:
     image: nginx:alpine
-    container_name: nginx
+    container_name: nginx_certbot
     ports:
       - "80:80"
     volumes:
