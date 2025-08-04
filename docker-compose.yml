@@ -58,6 +58,16 @@ services:
       - ingestion-doc
     networks:
       - app-net
+  nginx_certbot:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx_cert_provision.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - app-net
+
   certbot:
     image: certbot/certbot
     container_name: certbot
