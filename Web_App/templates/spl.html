@@ -70,7 +70,7 @@
     </style>
 </head>
 <body>
-    <img src="splunk_logo.png" alt="Splunk Logo" style="display:block; margin: 0 auto 2em auto; max-width: 220px; height: auto;">
+    <img src="{{ url_for('static', filename='splunk_logo.png') }}" alt="Splunk Logo" style="display:block; margin: 0 auto 2em auto; max-width: 220px; height: auto;">
     <h1>Splunk Query SPL to Cortex XSIAM XQL</h1>
     <form id="mainForm" method="POST">
         <textarea name="prompt" placeholder="Paste your Splunk query here"></textarea><br>
