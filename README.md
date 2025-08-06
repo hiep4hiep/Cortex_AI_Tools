@@ -23,9 +23,9 @@ Each module is designed to accelerate and automate complex security data workflo
 docker-compose -f docker_compose_certprovision.yml up
 ```
 
-### Step 3: Run the application
+### Step 4: Run the application
 ```
 sudo chmod +X run_app.sh
 sudo ./run_app.sh
 ```
-### Step 4: AI Agent Web UI will run at port 443. You can access via https://your-domain
+### Step 5: AI Agent Web UI will run at port 443. You can access via https://your-domain
