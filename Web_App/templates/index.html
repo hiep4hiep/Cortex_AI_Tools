@@ -2,73 +2,7 @@
 <html>
 <head>
     <title>XSIAM Data Ingestion design</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 2em;
-            background: #181c20;
-            color: #e0e6ed;
-        }
-        h1 {
-            color: #6cb6ff;
-            letter-spacing: 1px;
-            margin-bottom: 0.5em;
-        }
-        form {
-            background: #23272b;
-            padding: 2.5em 2em;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(20, 30, 40, 0.25);
-            max-width: 90vw;
-            width: 90vw;
-            margin: 0 0 2em 0;
-            box-sizing: border-box;
-        }
-        textarea {
-            width: 100%;
-            max-width: 100%;
-            height: 20vh;
-            padding: 1em;
-            border: 1px solid #38404a;
-            border-radius: 6px;
-            font-size: 1.1em;
-            resize: vertical;
-            background: #23272b;
-            color: #e0e6ed;
-            margin: 0 0 1em 0;
-            box-sizing: border-box;
-            display: block;
-        }
-        button[type="submit"] {
-            background: #3572b7;
-            color: #fff;
-            border: none;
-            padding: 0.7em 2em;
-            border-radius: 6px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button[type="submit"]:hover {
-            background: #285185;
-        }
-        .output {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #23272b;
-            border-radius: 8px;
-            max-width: 90vw;
-            width: 90vw;
-            margin: 0 0 2em 0;
-            box-shadow: 0 1px 4px rgba(20, 30, 40, 0.15);
-            color: #e0e6ed;
-            box-sizing: border-box;
-        }
-        .output h3 {
-            margin-top: 0;
-            color: #6cb6ff;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>XSIAM Deployment Tools</h1>
@@ -81,55 +15,14 @@
         </select>
         <textarea name="prompt" placeholder="Paste your input here"></textarea><br>
         <button type="submit" id="submitBtn">Send</button>
-        <script>
-            // Map tool to API endpoint (specify port for each container)
-            const apiMap = {
-                dmgen: { url: '/api/query/dmgen/'},
-                spl: { url: '/api/query/spl/'},
-                ingestion: { url: '/api/query/ingestion/'}
-            };
-
-            document.getElementById('mainForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const textarea = document.querySelector('textarea[name="prompt"]');
-                const btn = document.getElementById('submitBtn');
-                const tool = document.getElementById('toolSelect').value;
-                btn.disabled = true;
-                btn.textContent = 'Analyzing, please wait...';
-                const responseDiv = document.querySelector('.output');
-                if (responseDiv) responseDiv.remove();
-
-                const apiUrl = apiMap[tool].url;
-
-                const res = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: textarea.value })
-                });
-                let html_response = 'No response received.';
-                try {
-                    const data = await res.json();
-                    html_response = data.response || html_response;
-                } catch (err) {
-                    html_response = 'Error parsing response.';
-                }
-
-                const output = document.createElement('div');
-                output.className = 'output';
-                output.innerHTML = `<h3>Response:</h3>${html_response}`;
-                document.body.appendChild(output);
-
-                btn.disabled = false;
-                btn.textContent = 'Send';
-            });
-        </script>
     </form>
-
+s
     {% if response %}
     <div class="output">
         <h3>Response:</h3>
         {{ response | safe }}
     </div>
     {% endif %}
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>

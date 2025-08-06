@@ -2,8 +2,33 @@ import anthropic
 from sentence_transformers import SentenceTransformer
 from search_faiss import search_sentence_in_faiss
 from dotenv import load_dotenv
+import os
+import requests
 
 load_dotenv()  # Load from .env if exists
+
+def source_graph_query(message):
+    src_endpoint = os.environ.get('SRC_ENDPOINT')
+    access_token = os.environ.get('SRC_ACCESS_TOKEN')
+    model = os.environ.get('MODEL')
+
+    url = f"{src_endpoint}/.api/llm/chat/completions"
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": f"token {access_token}"
+    }
+    data = {
+        "messages": message,
+        #[
+        #    {"role": "user", "content": "Output just the command to create a git branch from the command line"}
+        #],
+        "model": model,
+        "max_tokens": 4096
+    }
+
+    response = requests.post(url, json=data, headers=headers)
+    return response.json().get('choices', [{}])[0].get('message', {}).get('content', '')
 
 
 def prompt_claude_with_rag(question):
