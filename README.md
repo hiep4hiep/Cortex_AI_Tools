@@ -21,7 +21,4 @@ Each module is designed to accelerate and automate complex security data workflo
 sudo chmod +X run_app.sh
 sudo ./run_app.sh
 ```
-### Step 3: AI Agent Web UI will run in 3 ports. You can access via http://server-ip:port
-- XSIAM_SPL_Converter - HTTP port 8000
-- XSIAM_DM_Generator - HTTP port 8001
-- XSIAM_Ingestion_Document - HTTP port 8002
+### Step 3: AI Agent Web UI will run at port 443. You can access via https://your-server-ip
