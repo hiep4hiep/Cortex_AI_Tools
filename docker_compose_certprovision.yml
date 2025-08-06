@@ -1,0 +1,36 @@
+services:
+  nginx_certbot:
+    image: nginx:alpine
+    container_name: nginx_certbot
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx_cert_provision.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    networks:
+      - app-net
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: >
+      sh -c "certbot certonly --webroot -w /var/www/certbot
+            --email your@email.com
+            --agree-tos
+            --no-eff-email
+            -d <your-domain.com> -d www.<your-domain.com>"
+    networks:
+      - app-net
+
+  toolbox:
+    image: curlimages/curl:latest
+    container_name: toolbox
+    entrypoint: ["sleep", "infinity"]
+    networks:
+      - app-net
+networks:
+  app-net:

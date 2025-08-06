@@ -16,9 +16,16 @@ Each module is designed to accelerate and automate complex security data workflo
 ## Run
 ### Step 1: Install Docker in your Linux server
 ### Step 2: create .env file in each app folders which contains Claude API key (ANTHROPIC_API_KEY=<key>)
-### Step 2: Run the application
+### Step 3: Get your server certificate.
+- Edit `<your-domain>` with your actual domain which host the site in 2 files `docker_compose_certprovision.yml` and `nginx_cert_provision.conf`
+- Run
+```
+docker-compose -f docker_compose_certprovision.yml up
+```
+
+### Step 3: Run the application
 ```
 sudo chmod +X run_app.sh
 sudo ./run_app.sh
 ```
-### Step 3: AI Agent Web UI will run at port 443. You can access via https://your-server-ip
+### Step 4: AI Agent Web UI will run at port 443. You can access via https://your-domain
