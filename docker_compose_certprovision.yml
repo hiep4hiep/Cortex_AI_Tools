@@ -26,11 +26,5 @@ services:
     networks:
       - app-net
 
-  toolbox:
-    image: curlimages/curl:latest
-    container_name: toolbox
-    entrypoint: ["sleep", "infinity"]
-    networks:
-      - app-net
 networks:
   app-net:
