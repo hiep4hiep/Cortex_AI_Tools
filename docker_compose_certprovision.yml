@@ -22,7 +22,7 @@ services:
             --email your@email.com
             --agree-tos
             --no-eff-email
-            -d <your-domain.com> -d www.<your-domain.com>"
+            -d 34.1.143.101 -d www.thedevguy.work -d thedevguy.work"
     networks:
       - app-net
 
