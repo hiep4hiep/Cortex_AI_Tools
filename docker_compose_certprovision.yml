@@ -18,10 +18,10 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     entrypoint: >
-      sh -c "certbot certonly --webroot -w /var/www/certbot
-            --email your@email.com
-            --agree-tos
-            --no-eff-email
+      sh -c "certbot certonly --webroot -w /var/www/certbot \
+            --email your@email.com \
+            --agree-tos \
+            --no-eff-email \
             -d 34.1.143.101 -d www.thedevguy.work -d thedevguy.work"
     networks:
       - app-net
